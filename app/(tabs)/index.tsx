@@ -3,14 +3,23 @@ import { Image, StyleSheet, Platform } from "react-native";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import { createStackNavigator } from "@react-navigation/stack";
+import Noticias from "@/app/(tabs)/news";
 
 const Stack = createStackNavigator();
 
 export default function HomeScreen() {
   return (
     <Stack.Navigator initialRouteName="Home">
-      <Stack.Screen name="Bienvenido" component={ThemedText}></Stack.Screen>
-      <Stack.Screen name="Inventario" component={ThemedView}></Stack.Screen>
+      <Stack.Screen
+        name="Bienvenido"
+        component={ThemedText}
+        options={{ headerShown: false }}
+      ></Stack.Screen>
+      <Stack.Screen
+        name="Noticias"
+        component={Noticias}
+        options={{ headerShown: false }}
+      ></Stack.Screen>
     </Stack.Navigator>
   );
 }

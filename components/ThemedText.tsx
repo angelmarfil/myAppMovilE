@@ -1,42 +1,41 @@
-import { Text, type TextProps, StyleSheet } from "react-native";
+import { type TextProps, StyleSheet, View } from "react-native";
+import { Icon, Button } from "@rneui/themed";
 
-import { useThemeColor } from "@/hooks/useThemeColor";
-import { Button } from "react-native";
+const data = [
+  { name: "Formulario", ruta: "form", icon: "groups", color: "#FC947D" },
+  {
+    name: "Materias",
+    ruta: "Materias",
+    icon: "book",
+    color: "#1369FF",
+  },
+  { name: "Noticias", ruta: "Noticias", icon: "newspaper", color: "#FC947D" },
+  { name: "Eventos", ruta: "Eventos", icon: "event", color: "#EF7DFC" },
+];
 
-export type ThemedTextProps = TextProps & {
-  lightColor?: string;
-  darkColor?: string;
-  type?: "default" | "title" | "defaultSemiBold" | "subtitle" | "link";
-};
-
-export function ThemedText({
-  style,
-  lightColor,
-  darkColor,
-  type = "default",
-  ...rest
-}: ThemedTextProps) {
-  const color = useThemeColor({ light: lightColor, dark: darkColor }, "text");
-
+export function ThemedText({ navigation }: { navigation: any }) {
   return (
     <>
-      <Text
-        style={[
-          { color },
-          type === "default" ? styles.default : undefined,
-          type === "title" ? styles.title : undefined,
-          type === "defaultSemiBold" ? styles.defaultSemiBold : undefined,
-          type === "subtitle" ? styles.subtitle : undefined,
-          type === "link" ? styles.link : undefined,
-          style,
-        ]}
-        {...rest}
-      />
-
-      <Button title={"Boton 1"}></Button>
-      <Button title={"Boton 2"}></Button>
-      <Button title={"Boton 3"}></Button>
-      <Button title={"Boton 4"}></Button>
+      <View style={{ marginTop: 50 }}>
+        {data.map((d, index) => (
+          <View key={index}>
+            <Button
+              title={d.name}
+              icon={<Icon name={d.icon} size={50} color="white" />}
+              buttonStyle={{
+                backgroundColor: d.color,
+                borderRadius: 10,
+                padding: 10,
+                flexDirection: "column",
+              }}
+              containerStyle={{ margin: 5 }}
+              iconContainerStyle={{ marginBottom: 10 }}
+              titleStyle={{ textAlign: "center" }}
+              onPress={() => navigation.navigate(d.ruta)}
+            ></Button>
+          </View>
+        ))}
+      </View>
     </>
   );
 }
